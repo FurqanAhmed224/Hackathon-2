@@ -6,8 +6,15 @@
 // compile: cmake --build build
 // run: ./build/main
 
+// commiting to github
+ // git add .
+ // git commit -m "what i want to say"
+ // git push
+
 #include <iostream>
 #include "raylib.h"
+#include "App.h"
+
 using namespace std;
 
 int main() {
@@ -18,6 +25,7 @@ int main() {
     SetTargetFPS(30); // setting FPS
 
     // need to load all images in the project
+    // CITATION: all images were uploaded from the web
 
     Texture2D Phonephoto = LoadTexture("phoneAssets/phone.png"); // loading the phone texture
     Texture2D chatPhoto = LoadTexture("phoneAssets/chat.png"); // loading the phone texture
@@ -26,6 +34,10 @@ int main() {
     Texture2D musicPhoto = LoadTexture("phoneAssets/music.png"); // loading the phone texture
     Texture2D shopPhoto = LoadTexture("phoneAssets/shop.png"); // loading the phone texture
     Texture2D instagramInterface = LoadTexture("phoneAssets/instagram.png"); // loading the instagram interface
+    Texture2D healthInterface = LoadTexture("phoneAssets/appleHealth.png"); // interface png still needed
+    Texture2D mapsInterface = LoadTexture("phoneAssets/googleMaps.png"); // interface png still needed
+    Texture2D musicInterface = LoadTexture("phoneAssets/appleMusic.png"); // interface png still needed
+    Texture2D shopInterface = LoadTexture("phoneAssets/shopify.png"); // interface png still needed
 
     // checking if images are loaded successfully
 
@@ -71,9 +83,19 @@ int main() {
      bool locationPermissionGranted = false; // stores what deceision user makes
      int continueStep = 0; // the continue box and stuff
 
+     App apps[5] = {
+        App("Instagram", "Posts, likes, and interactions", "Personal interests and social connections"),
+        App("Health", "Steps, heart rate, and activity records", "Daily habits and physical activity"),
+        App("Google Maps", "Location history, searches, and routes", "Home, work, and frequently visited places"),
+        App("Spotify", "Listening history and favorite songs", "Music preferences and interests"),
+        App("Shopify", "Purchase history and shopping activity", "Shopping habits and consumer preferences")
+    };
+
     // got to keep hte window run until user closes
 
     while(!WindowShouldClose()){
+
+
 
         BeginDrawing(); // new drawing
         ClearBackground(BLACK);
@@ -108,6 +130,26 @@ int main() {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse,chatDest)){ // detecting if mouse was clicked, and making sure it touches instagram
                 std::cout << "X: " << mouse.x << " Y: " << mouse.y << endl;
                 currentScreen = 1;
+            }
+
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse,healthDest)){ // now detecting when mouse clicks the healh app
+                std::cout << "X: " << mouse.x << " Y: " << mouse.y << endl;
+                currentScreen = 2;
+            }
+
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse,mapDest)){ // now detecting when mouse clicks the map app
+                std::cout << "X: " << mouse.x << " Y: " << mouse.y << endl;
+                currentScreen = 3;
+            }
+
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse,musicDest)){ // now detecting when mouse clicks the music app
+                std::cout << "X: " << mouse.x << " Y: " << mouse.y << endl;
+                currentScreen = 4;
+            }
+
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse,shopDest)){ // now detecting when mouse clicks the shopn app
+                std::cout << "X: " << mouse.x << " Y: " << mouse.y << endl;
+                currentScreen = 5;
             }
         }
             // instagram screen, basically when the app is pressed, currentscreen switches to 1, which load this if statement
@@ -274,7 +316,7 @@ int main() {
         EndDrawing();
     }
 
-    // CITATION: used chatgpt: getting an error for "cout is ambigious", chatgpt said just use std before cout.
+    // CITATION: used chatgpt: getting an error for "cout is ambigious", chatgpt said just use std before cout, Im guessing because of the raylib header
 
     UnloadTexture(Phonephoto);
     std:: cout << endl << endl << endl;
